@@ -30,12 +30,12 @@ namespace Variant5
         {
             if ((textBox1.Text == "") || (textBox2.Text == "") || (textBox3.Text == ""))
             {
-                MessageBox.Show("Пожалуйста убедитесь в правильности ввода данных и повторите попытку");
+                MessageBox.Show("РџРѕР¶Р°Р»СѓР№СЃС‚Р° СѓР±РµРґРёС‚РµСЃСЊ РІ РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РІРІРѕРґР° РґР°РЅРЅС‹С… Рё РїРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ");
             }
             else
             {
                 int x = Convert.ToInt32(textBox3.Text);
-                int imax = 400;
+                int imax = Convert.ToInt32(textBox4.Text);
                 int period = 2; 
                 int a = Convert.ToInt32(textBox1.Text); 
                 int x0 = 20; 
@@ -52,7 +52,7 @@ namespace Variant5
                 if (comboBox1.Text == "CtanA")
                     s = new CtngA();
 
-                // Функция
+                // Р¤СѓРЅРєС†РёСЏ
                 for (int i = 0; i < imax * period; i++)
                 {
                     f[i] = s.Function(a, b, i, imax, x);
@@ -61,13 +61,13 @@ namespace Variant5
                 Graphics g = Graphics.FromHwnd(this.Handle);
                 Pen pen = Pens.Black;
 
-                g.DrawLine(pen, x0, y0, x0 + imax * period, y0); //Рисуем ось X
-                g.DrawLine(pen, x0, y0 - a, x0, y0 + a); //Рисуем ось Y
+                g.DrawLine(pen, x0, y0, x0 + imax * period, y0); //Р РёСЃСѓРµРј РѕСЃСЊ X
+                g.DrawLine(pen, x0, y0 - a, x0, y0 + a); //Р РёСЃСѓРµРј РѕСЃСЊ Y
 
-                for (int i = 0; i < imax * period; i++) //Рисуем график
+                for (int i = 0; i < imax * period; i++) //Р РёСЃСѓРµРј РіСЂР°С„РёРє
                 {
-                    int y1 = y0 - (int)f[i]; //Координата Y[i]
-                    int y2 = y0 - (int)f[i + 1]; //Координата Y[i+1]
+                    int y1 = y0 - (int)f[i]; //РљРѕРѕСЂРґРёРЅР°С‚Р° Y[i]
+                    int y2 = y0 - (int)f[i + 1]; //РљРѕРѕСЂРґРёРЅР°С‚Р° Y[i+1]
                     g.DrawLine(pen, x0 + i, y1, x0 + i + 1, y2);
                 }
             }
@@ -138,6 +138,15 @@ namespace Variant5
         }
 
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+            if (!Char.IsDigit(number) && number != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
             char number = e.KeyChar;
             if (!Char.IsDigit(number) && number != 8)
